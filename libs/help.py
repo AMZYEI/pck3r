@@ -113,21 +113,3 @@ else:
 
             %s
     """ % (stuff.YEL, stuff.NRM)
-
-
-
-
-    # pck3r heart runner
-    
-    if (syscall(' %s/.pck3r/scripts/./pck3r-heart.rb' %getenv('HOME')))==0:
-        print(message)
-        syscall('~/.pck3r/scripts/./pck3r-heart.rb')
-
-    # if ruby not installed 
-    else:
-        print('%sdependency detected : ruby-full%s' % (stuff.YEL, stuff.NRM))
-        
-        syscall('sudo apt install ruby-full')
-        syscall('clear')
-        print(message)
-        syscall('~/.pck3r/scripts/./pck3r-heart.rb')
