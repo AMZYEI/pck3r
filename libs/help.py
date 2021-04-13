@@ -38,7 +38,7 @@ $ chmod 755 installer.py ; ./installer.py
 else:
     from . import stuff
 
-    message ="""%s
+    print("""%s
     -----------------------------------------
     |                                       |
     | pck3r : It is a versatile program and |
@@ -113,3 +113,4 @@ else:
 
             %s
     """ % (stuff.YEL, stuff.NRM)
+    )
