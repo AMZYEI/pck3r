@@ -16,9 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 '''
 
-__authors__ = ['M.Amin Azimi .K (amzy-0)', 
-                'mehrzero', 
-                'https://github.com/amzy-0/pck3r/graphs/contributors']
+__authors__ = ['M.Amin Azimi .K (amzy-0)', 'https://github.com/amzy-0/pck3r/graphs/contributors']
 
 from os import system as syscall
 from os import getenv, getcwd, chdir
