@@ -61,7 +61,7 @@ $ ./installer.py
         minecraft,
         or ...
     }
-
+    
 "clear" command :
 
     $ pck3r clear:
