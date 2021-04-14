@@ -16,7 +16,7 @@ this program. If not, see <http://www.gnu.org/licenses/>.
 
 '''
 
-__authors__ = ['M.Amin Azimi .K (amzy-0)', 'https://github.com/amzy-0/pck3r/graphs/contributors']
+__authors__ = ['M.Amin Azimi .K(amzy-0)', 'https://github.com/amzy-0/pck3r/graphs/contributors']
 
 from os import system as syscall
 from os import getenv, getcwd, chdir
@@ -255,7 +255,8 @@ for i in range(argc):
             # if user want to see the pck3r version
             elif argv[1] == 'version' and argc ==2:
                 print(f'{stuff.CYN}version is :{stuff.YEL} 0.2{stuff.NRM}')
-                print(f'{stuff.NRM}Authors : {stuff.CYN}{", ".join(__authors__[:2])}, ...{stuff.NRM}')
+                print(f'{stuff.NRM}
+                 {stuff.CYN}{", ".join(__authors__[:2])}, ...{stuff.NRM}')
           
 
             # if command not valid 
