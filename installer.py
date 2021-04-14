@@ -22,11 +22,10 @@ from libs import stuff
 from os import  getcwd, getenv, chdir
 from os import system as syscall
 ###############################################################################
-# preinstall requirements                                                     #
-syscall('mkdir -p ~/.pck3r/icon ; cp -rf ./icon/pck3r-logo.png ~/.pck3r/icon')#
-syscall('sudo apt install python3-tk -y')                                     #
-syscall('sudo apt install python3-pil python3-pil.imagetk -y')                #
-syscall('sudo apt install g++ -y')                                            # 
+# preinstall requirements                                                     
+syscall('mkdir -p ~/.pck3r/icon ; cp -rf ./icon/pck3r-logo.png ~/.pck3r/icon')
+syscall('''sudo apt install \\
+     python3-tk python3-pil python3-pil.imagetk g++ libnotify-bin -y > /dev/null 2>&1 ''')                                                                                     
 ###############################################################################
 import tkinter as tk
 from tkinter.ttk import *
@@ -50,16 +49,14 @@ def bar():
     progress['value'] = 20
     root.update_idletasks()
     time.sleep(1)
-    print('Unlinking pck3r (if was installed) ')
-    syscall('sudo unlink /bin/pck3r ')
-    syscall('sudo rm -rf /bin/pck3r*')
+    syscall('sudo unlink /bin/pck3r > /dev/null 2>&1')
 
     # 40% PROGRESS
     progress['value'] = 40
     root.update_idletasks()
     time.sleep(1)
    
-    syscall('rm -rf ~/.pck3r && sudo rm -rf /root/.pck3r') if (syscall('echo %s ; ls ~/.pck3r' % stuff.CYN)) ==0 else print('%sCopy all pck3r directory %s' %(stuff.CYN, stuff.NRM))
+    syscall('rm -rf ~/.pck3r && sudo rm -rf /root/.pck3r')
     syscall('mkdir ~/.pck3r')
     syscall('cp -rf . ~/.pck3r')
     syscall('sudo cp -rf . /root/.pck3r')
@@ -74,15 +71,20 @@ def bar():
     progress['value'] = 60
     root.update_idletasks()
     time.sleep(1)
-    print('%sCheck link ' % stuff.YEL)
-    print('Link created ') if (syscall('ls -l  /bin/pck3r')) == 0  else print('%s%sNo link (/bin/pck3r)%s ' % (stuff.sysOk(), stuff.RED, stuff.NRM))
+    
+    if (syscall('ls -l /bin/pck3r > /dev/null 2>&1')) == 0:
+        pass
+    else:
+        syscall('notify-send --icon="/$(pwd)/icon/pck3r-logo.png" "尸⼕长㇌尺 : No link"')
+    
     progress['value'] = 80
     root.update_idletasks()
     time.sleep(1)
 
     # 100% PROGRESS
     progress['value'] = 100
-    print('%s%sPck3r installed successfuly %s' % (stuff.sysOk(), stuff.GRN, stuff.NRM))
+    syscall('''notify-send --icon="/$(pwd)/icon/pck3r-logo.png"\\
+        "尸⼕长㇌尺 :Link created &\n installed successfuly"''')
     
     root.quit()
 
@@ -97,10 +99,9 @@ root.configure(background='black')
 root.resizable(False, False)
 progress.pack(fill='x', pady = 10)
 installBtn = tk.Button(root, text='install pck3r (system wide) ', command = bar)
-installBtn.configure(fg='lightblue', bg='darkblue', )
+installBtn.configure(fg='lightblue', bg='darkred',)
 
 installBtn.pack(fill='x', pady = 10)
 
 # infinite loop
 tk.mainloop()
-
