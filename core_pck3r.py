@@ -255,7 +255,7 @@ for i in range(argc):
             # if user want to see the pck3r version
             elif argv[1] == 'version' and argc ==2:
                 print(f'{stuff.CYN}version is :{stuff.YEL} 0.2{stuff.NRM}')
-                print(f'{stuff.MAG}Authors : {stuff.CYN}{", ".join(__authors__[:2])}, ...{stuff.NRM}')
+                print(f'{stuff.NRM}Authors : {stuff.CYN}{", ".join(__authors__[:2])}, ...{stuff.NRM}')
           
 
             # if command not valid 
