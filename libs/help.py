@@ -49,7 +49,6 @@ else:
     |                                       |
     -----------------------------------------
 
-
 \"install\" command :
 
     $ pck3r install \"somthing\" :
@@ -58,7 +57,6 @@ else:
         wine,
         ohmyzsh,
         flstudio,
-        minecraft,
         or ...
     }
 
@@ -66,7 +64,6 @@ else:
 
     $ pck3r clear:
     {clear your terminal }
-
 
 \"sys\" command :
 
@@ -78,7 +75,6 @@ else:
 
     $ pck3r sys updgr
     (both, update and upgrade (full upgrade))
-
 
 \"tilix\" command :
 
@@ -100,11 +96,6 @@ else:
     $ pck3r update
     (update to last release from github.com/amzy-0/pck3r)
     
-\"minecraft\" command :
-
-    $ pck3r minecraft
-    (minecraft runner)
-
 "version" command :
 
     $ pck3r version
