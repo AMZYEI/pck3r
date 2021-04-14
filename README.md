@@ -58,7 +58,6 @@ $ ./installer.py
         wine,
         ohmyzsh,
         flstudio,
-        minecraft,
         or ...
     }
     
@@ -66,12 +65,7 @@ $ ./installer.py
 
     $ pck3r clear:
     {clear your terminal }
-
-
-"sys" command :
-
-    $ pck3r sys update
-    (update your oprating system)
+git branch --set-upstream-to=<remote>/<branch> master
 
     $ pck3r sys upgrade
     (upgrade your oprating system)
@@ -106,13 +100,6 @@ $ ./installer.py
     $ pck3r update
     (update to last release from github.com/amzy-0/pck3r)
 
-
-
-"minecraft" command :
-
-
-    $ pck3r minecraft
-    (minecraft runner)
 
 
 "version" command :

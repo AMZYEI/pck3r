@@ -104,10 +104,6 @@ for i in range(argc):
                         syscall('echo "curl" is required for using "ohMyZsh" ; sudo apt install curl')
                         syscall('sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"') 
 
-                elif argv[2] == 'minecraft' and argc==3:
-                    chdir('%s/.pck3r' % getenv('HOME'))
-                    syscall('g++ minecraft-pck3r.cpp -o  minecraft')
-                    syscall('./minecraft')
                 
                 # wine installer blocks
                 # command : $ pck3r install  wine 
@@ -254,22 +250,6 @@ for i in range(argc):
                 # if after "pkg" isn't empty
                 if argv[2:] != [] and argc >= 2:
                     syscall('sudo apt search %s' % ' '.join(argv[2:]))
-            
-            elif argv[1] == 'minecraft' and argc ==2:
-
-                    if (syscall('ls ~/.TLauncher-2.75.jar'))==0:
-                            print('%s%sRunning minecraft...%s' %(stuff.sysOk() , stuff.GRN, stuff.NRM))
-                            syscall('sudo java -jar ~/.TLauncher-2.75.jar')
-                    
-                    else:
-
-                        print('''%s%s
-                        Can't running minecraft  !
-                        check this path : %s/.TLauncher-2.75.jar
-                        install minecraft :
-                        $ pck3r install minecraft%s
-                        '''
-                        %(stuff.sysERR(), stuff.RED, getenv('HOME'), stuff.NRM))
             
 
             # if user want to see the pck3r version
