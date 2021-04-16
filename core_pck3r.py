@@ -27,6 +27,15 @@ from libs import wine
 
 argc = len(argv)
 
+def error_sys(): 
+    print('''
+    %s%sAfter "sys" is empty !
+    Please try:
+    $ pck3r sys <update/upgrade/updgr(update and upgrade)>%s
+    '''
+    % (stuff.sysERR() , stuff.RED, stuff.NRM))
+
+
 for i in range(argc):
 
         # if user just type $ pck3r
@@ -47,7 +56,7 @@ for i in range(argc):
             # pck3r updator
             elif argv[1] == 'update' and argc == 2:
                 
-                if (syscall('ls %s/.pck3r > /dev/null 2>&1' % getenv('HOME')))==0:
+                if (syscall('ls %s/.pck3r > /dev/null 2<' % getenv('HOME')))==0:
                     chdir('%s/.pck3r' % getenv('HOME'))
                     syscall('git pull')
 
@@ -180,12 +189,7 @@ for i in range(argc):
 
             # if after "sys" command is empty
             elif argv[1] == 'sys' and argc == 2:
-                print('''
-                %s%sAfter "sys" is empty !
-                Please try:
-                $ pck3r sys <update/upgrade/updgr(update and upgrade)>%s
-                '''
-                 % (stuff.sysERR() , stuff.RED, stuff.NRM))
+                error_sys()
 
             # if after pck3r equal to "sys"
             elif argv[1] == 'sys' and argc > 2:
@@ -218,10 +222,7 @@ for i in range(argc):
                     
                     # Exception
                     else:
-                        
-                        print(f'{stuff.sysERR()}{stuff.RED}Please try:\n$ pck3r sys <update/upgrade/updgr(update and upgrade)>{stuff.NRM}')
-
-
+                        error_sys()
                 # if user command, equal to $ pck3r sys updgr
                 #do :
                 elif argv[2] == 'updgr' and argc==3:
@@ -240,8 +241,7 @@ for i in range(argc):
                 # will send an error to the user.
                 # do :
                 else:
-                    print(f'{stuff.sysERR()}{stuff.RED}Please try:\n$ pck3r sys <update/upgrade/updgr(update and upgrade)>{stuff.NRM}')
-                    
+                    error_sys()
                     
             # if after "pkg" is empty
             elif argv[1]== 'pkg' and argc <= 2:
@@ -257,7 +257,7 @@ for i in range(argc):
 
             # if user want to see the pck3r version
             elif argv[1] == 'version' and argc ==2:
-                syscall(f'echo {stuff.CYN}version is :git describe --tags --abbrev=0 {stuff.YEL}{stuff.NRM}')
+                syscall(f'echo {stuff.CYN}version is : `git describe --tags --abbrev=0` {stuff.YEL}{stuff.NRM}')
                 print(f'{stuff.NRM}{stuff.CYN}{", ".join(__authors__[:2])}, ...{stuff.NRM}')
           
 
