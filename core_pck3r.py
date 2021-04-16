@@ -57,7 +57,7 @@ for i in range(argc):
             # pck3r updator
             elif argv[1] == 'update' and argc == 2:
                 
-                if (syscall('ls %s/.pck3r > /dev/null 2<' % getenv('HOME')))==0:
+                if (syscall('ls %s/.pck3r > /dev/null 2<&1' % getenv('HOME')))==0:
                     chdir('%s/.pck3r' % getenv('HOME'))
                     syscall('git pull')
 
