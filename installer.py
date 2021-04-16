@@ -56,10 +56,9 @@ def bar():
     root.update_idletasks()
     time.sleep(1)
    
-    syscall('rm -rf ~/.pck3r && sudo rm -rf /root/.pck3r')
+    syscall('rm -rf ~/.pck3r')
     syscall('mkdir ~/.pck3r')
     syscall('cp -rf . ~/.pck3r')
-    syscall('sudo cp -rf . /root/.pck3r')
 
     # 50% PROGRESS
     progress['value'] = 50
