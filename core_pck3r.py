@@ -27,24 +27,16 @@ from libs import wine
 
 argc = len(argv)
 
-<<<<<<< HEAD
 def error_sys(): 
-    print('''
-    %s%sAfter "sys" is empty !
-    Please try:
-    $ pck3r sys <update/upgrade/updgr(update and upgrade)>%s
-    '''
+    print('''%s%s
+After "sys" is empty !
+
+Please try:
+$ pck3r sys <update/upgrade/updgr(update and upgrade)>%s'''
     % (stuff.sysERR() , stuff.RED, stuff.NRM))
 
 
-=======
-def sys_error():
-    print('''%s%s
-Please try:
-$ pck3r sys <update/upgrade/updgr(update and upgrade)>%s
-    ''' %(stuff.sysERR(), stuff.RED, stuff.NRM))
  
->>>>>>> 2fa3dffbaa2073fd31f94b1d0aaefea6ad76eabd
 for i in range(argc):
 
         # if user just type $ pck3r
@@ -198,11 +190,8 @@ for i in range(argc):
 
             # if after "sys" command is empty
             elif argv[1] == 'sys' and argc == 2:
-<<<<<<< HEAD
                 error_sys()
-=======
-                sys_error()
->>>>>>> 2fa3dffbaa2073fd31f94b1d0aaefea6ad76eabd
+
 
             # if after pck3r equal to "sys"
             elif argv[1] == 'sys' and argc > 2:
@@ -235,13 +224,9 @@ for i in range(argc):
                     
                     # Exception
                     else:
-<<<<<<< HEAD
                         error_sys()
-=======
                         
-                        sys_error()
 
->>>>>>> 2fa3dffbaa2073fd31f94b1d0aaefea6ad76eabd
                 # if user command, equal to $ pck3r sys updgr
                 #do :
                 elif argv[2] == 'updgr' and argc==3:
@@ -260,11 +245,8 @@ for i in range(argc):
                 # will send an error to the user.
                 # do :
                 else:
-<<<<<<< HEAD
                     error_sys()
-=======
-                    sys_error()                    
->>>>>>> 2fa3dffbaa2073fd31f94b1d0aaefea6ad76eabd
+
                     
             # if after "pkg" is empty
             elif argv[1]== 'pkg' and argc <= 2:
