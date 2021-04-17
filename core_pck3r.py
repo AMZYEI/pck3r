@@ -60,7 +60,6 @@ for i in range(argc):
                 if (syscall('ls %s/.pck3r > /dev/null 2<&1' % getenv('HOME')))==0:
                     chdir('%s/.pck3r' % getenv('HOME'))
                     syscall('git pull')
-                elif 
                 else:
                     print('''You can not update pck3r with the "root" permission
                     %s%sPck3r is not installed%s'''
