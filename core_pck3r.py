@@ -126,15 +126,37 @@ for i in range(argc):
                 # argument 2 is not empty
 
                 elif argv[2:] != [] and argc >= 2:
-                    print('%s%s\nCommand is valid!\n%s' 
+                    print('%s%s\nCommand is valid : "$ pck3r install"\nLoading package lists...\n%s' 
                     % (stuff.sysOk(), stuff.GRN, stuff.YEL))
-                    if (syscall('sudo apt install %s' 
-                    % ' '.join(argv[2:])))==0:
-                        pass
-                    # Exception
-                    else:
-                        print('%s%sPackage(s) or Command(s) not found : \'%s"' 
+
+                    packages = argv[2:]
+                    packages = list(packages)
+                        
+                    if (syscall('sudo apt install %s 2> /dev/null' 
+                    % ' '.join(argv[2:]))) == 256:
+                        print('%s%sPackage(s) : %s Status : Abort ! ...'
                         % (stuff.sysERR(), stuff.RED, ' '.join(argv[2:])))
+                        break
+                
+                        
+                    elif (syscall('sudo apt install %s 2> /dev/null' 
+                    % ' '.join(argv[2:]))) != 0 :
+
+                        
+                        # all the packages after "sudo apt install" assigned to the : packages variable
+                        
+                        for package in packages: #validation
+                            
+                            if (syscall('sudo apt install %s 2> /dev/null' % package))==25600:
+                                failed = list()
+                                failed.append(package)
+                                print('%s%sPackage(s) or Switch(s) : %s Status : Not found ! ...'
+                                % (stuff.sysERR(), stuff.RED, ' '.join(failed)), end='')
+                                syscall('sleep 1')
+                                                        
+                                print(stuff.NRM)
+
+
 
             # if argument 1 equal to "uninstall"
             elif argv[1] == 'uninstall' and argc >= 2:
