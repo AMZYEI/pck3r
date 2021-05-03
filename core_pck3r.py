@@ -59,10 +59,10 @@ for i in range(argc):
                 
                 if (syscall('ls %s/.pck3r > /dev/null 2<&1' % getenv('HOME')))==0:
                     chdir('%s/.pck3r' % getenv('HOME'))
-                    syscall('git pull')
+                    syscall('git reset FETCH_HEAD ; git pull')
                 else:
-                    print('''You can not update pck3r with the "root" permission
-                    %s%sPck3r is not installed%s'''
+                    print('''%s%sYou can not update pck3r with the "root" permission
+                    %s'''
                     %(stuff.sysERR(), stuff.RED, stuff.NRM))
 
             # if argument 1 equal to "help"
@@ -89,9 +89,10 @@ for i in range(argc):
 
                     if (syscall(
                         '''echo %s ; 
-                        curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - ;
-                         echo %s ; sudo apt install nodejs; sudo apt-get update && echo %s;
-                         sudo apt install yarnpkg -y'''
+                            curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -; sudo apt install -y nodejs 
+                            sudo apt update && echo %s;
+                            echo %s;
+                            sudo apt install yarnpkg -y''' 
                         % (stuff.YEL, stuff.CYN, stuff.MAG)))==0:
 
                         print('%s' % stuff.sysOk())
@@ -131,32 +132,47 @@ for i in range(argc):
 
                     packages = argv[2:]
                     packages = list(packages)
-                        
-                    if (syscall('sudo apt install %s 2> /dev/null' 
-                    % ' '.join(argv[2:]))) == 256:
-                        print('%s%sPackage(s) : %s Status : Abort ! ...'
-                        % (stuff.sysERR(), stuff.RED, ' '.join(argv[2:])))
-                        break
-                
-                        
-                    elif (syscall('sudo apt install %s 2> /dev/null' 
-                    % ' '.join(argv[2:]))) != 0 :
 
+
+                    for package in packages:
                         
-                        # all the packages after "sudo apt install" assigned to the : packages variable
-                        
-                        for package in packages: #validation
-                            
-                            if (syscall('sudo apt install %s 2> /dev/null' % package))==25600:
-                                failed = list()
-                                failed.append(package)
-                                print('%s%sPackage(s) or Switch(s) : %s Status : Not found ! ...'
-                                % (stuff.sysERR(), stuff.RED, ' '.join(failed)), end='')
-                                syscall('sleep 1')
+                        if syscall(('sudo apt install -f && sudo dpkg --configure -a ; sudo apt install %s  2> /dev/null ' 
+                        % package))==0:
+                            failed = list()
+                            failed.append(package)
+                            syscall("echo %s; %s --version" % (stuff.GRN, package))
+                            print('%s%sPackage(s) or Command(s) : %s Status : found ! ...%s'
+                            % (stuff.sysOk(), stuff.GRN, ' '.join(failed), stuff.NRM))
+
+                        elif syscall(('sudo apt install %s > /dev/null 2>&1' % package))==25600:
+                            failed = list()
+                            failed.append(package)
+                            print('%s%sPackage(s) or Command(s) : %s Status : Not found ! ...%s'
+                            % (stuff.sysERR(), stuff.RED, ' '.join(failed), stuff.NRM))
+                            syscall('sleep 1')
                                                         
+
+                        elif (syscall('sudo apt install %s 2> /dev/null ' 
+                        % ' '.join(argv[2:]))) != 0 :
+                                                    
+                            # all the packages after "sudo apt install" assigned to the : packages variable
+                            
+                            for package in packages: #validation
+
+                                # if(syscall('%s --version 2> /dev/null' % package))==0:
+                                #     print('%s%s\n"%s" is already the newest version %s'
+                                #     % (stuff.sysOk(), stuff.GRN, package, stuff.NRM))
+                                
+                                if (syscall('sudo apt install %s 2> /dev/null' % package))==25600:
+                                    failed = list()
+                                    failed.append(package)
+                                    print('%s%sPackage(s) or Command(s) : "%s" Status : Not found ! ...'
+                                    % (stuff.sysERR(), stuff.RED, ' '.join(failed)), end='')
+                                    syscall('sleep 1')
+                                    break
+                         
                                 print(stuff.NRM)
-
-
+                                break
 
             # if argument 1 equal to "uninstall"
             elif argv[1] == 'uninstall' and argc >= 2:
@@ -200,7 +216,12 @@ for i in range(argc):
             # Only use :
             # $ pck3r tilix <somthing> <somthing> <somthing> <somthing>, ...
             elif argv[1] =='tilix' and argc==2:
-                syscall('sudo apt install tilix  ; clear ; tilix ')
+                ans = input('install and run "tilix" terminal (y/n) ? ')
+                if (ans == 'y'):
+                    syscall('sudo apt install tilix  > /dev/null 2>&1 ;  tilix& > /dev/null 2>&1; clear')
+                    
+                else:
+                    break
 
 
             # Too many arguments error for $ pck3r tilix
