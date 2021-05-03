@@ -59,7 +59,7 @@ for i in range(argc):
                 
                 if (syscall('ls %s/.pck3r > /dev/null 2<&1' % getenv('HOME')))==0:
                     chdir('%s/.pck3r' % getenv('HOME'))
-                    syscall('git reset FETCH_HEAD ; git pull')
+                    syscall('git pull')
                 else:
                     print('''%s%sYou can not update pck3r with the "root" permission
                     %s'''
