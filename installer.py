@@ -25,7 +25,7 @@ from os import system as syscall
 # preinstall requirements                                                     
 syscall('mkdir -p ~/.pck3r/icon ; cp -rf ./icon/pck3r-logo.png ~/.pck3r/icon')
 syscall('''sudo apt install \\
-     python3-tk python3-pil python3-pil.imagetk g++ libnotify-bin -y > /dev/null 2>&1 ''')                                                                                     
+     python3-tk python3-pil python3-pil.imagetk g++ libnotify-bin -y > /dev/null ''')                                                                                     
 ###############################################################################
 import tkinter as tk
 from tkinter.ttk import *
