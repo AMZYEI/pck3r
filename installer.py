@@ -23,10 +23,15 @@ from os import  getcwd, getenv, chdir
 from os import system as syscall
 ###############################################################################
 # preinstall requirements                                                     
-syscall('mkdir -p ~/.pck3r/icon ; cp -rf ./icon/pck3r-logo.png ~/.pck3r/icon')
-syscall('''sudo apt install \\
-     python3-tk python3-pil python3-pil.imagetk g++ libnotify-bin -y > /dev/null ''')                                                                                     
+if syscall('mkdir -p ~/.pck3r/icon ; cp -rf ./icon/pck3r-logo.png ~/.pck3r/icon')!=0:
+    quit()
+    
+elif syscall(
+    'sudo apt install python3-tk python3-pil python3-pil.imagetk libnotify-bin -y > /dev/null;clear'
+    ) != 0:                                                                                     
+    quit()
 ###############################################################################
+
 import tkinter as tk
 from tkinter.ttk import *
 import time
@@ -98,8 +103,8 @@ root.configure(background='black')
 root.resizable(False, False)
 progress.pack(fill='x', pady = 10)
 installBtn = tk.Button(root, text='install pck3r (system wide) ', command = bar)
-installBtn.configure(fg='lightblue', bg='darkred',)
-
+installBtn.configure(fg='white', bg='darkblue',)
+installBtn.focus()
 installBtn.pack(fill='x', pady = 10)
 
 # infinite loop
