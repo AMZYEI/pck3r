@@ -18,10 +18,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 """
-__authors__ = ['M.Amin Azimi .K(amzy-0)', 'https://github.com/amzy-0/pck3r/graphs/contributors']
+__authors__ = ['M.Amin Azimi .K(amzy-0)', 
+'https://github.com/amzy-0/pck3r/graphs/contributors']
 
 from os import system as syscall
-from os import getenv, getcwd, chdir
+from os import getenv, chdir
 from sys import argv
 from libs import stuff
 from libs import dotnet
