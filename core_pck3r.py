@@ -22,7 +22,7 @@ __authors__ = ['M.Amin Azimi .K(amzy-0)',
 'https://github.com/amzy-0/pck3r/graphs/contributors']
 
 from os import system as syscall
-from os import getenv, chdir
+from os import chdir
 from sys import argv
 from libs import stuff
 from libs import dotnet
@@ -63,9 +63,9 @@ while True:
             # pck3r updator
             elif argv[1] == 'update' and argc == 2:
                 
-                if (syscall('ls %s/.pck3r > /dev/null 2<&1' % getenv('HOME')))==0:
-                    chdir('%s/.pck3r' % getenv('HOME'))
-                    syscall('git pull')
+                if (syscall('ls /opt/pck3r > /dev/null 2<&1'))==0:
+                    chdir('/opt/pck3r')
+                    syscall('sudo -p "[sudo]🔑 : " git pull ; sudo -p "[sudo]🔑 : " git restore .; ./installer.py')
                 else:
                     print('''%s%sYou can not update pck3r with the "root" permission
                     %s'''
@@ -95,10 +95,10 @@ while True:
 
                     if (syscall(
                         '''echo %s ; 
-                            curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -; sudo apt install -y nodejs 
-                            sudo apt update && echo %s;
+                            curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -p "[sudo]🔑 : " -E bash -; sudo -p "[sudo]🔑 : " apt install -y nodejs 
+                            sudo -p "[sudo]🔑 : " apt update && echo %s;
                             echo %s;
-                            sudo apt install yarnpkg -y''' 
+                            sudo -p "[sudo]🔑 : " apt install yarnpkg -y''' 
                         % (stuff.YEL, stuff.CYN, stuff.MAG)))==0:
 
                         print('%s' % stuff.sysOk())
@@ -117,11 +117,11 @@ while True:
                     dotnet.install_dotnet()
 
                 elif argv[2] == 'ohmyzsh' and argc==3:
-                    syscall('sudo apt install zsh curl')
+                    syscall('sudo -p "[sudo]🔑 : " apt install zsh curl')
                     if (syscall('curl --version')) == 0 :
                         syscall('sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"') 
                     else:
-                        syscall('echo "curl" is required for using "ohMyZsh" ; sudo apt install curl')
+                        syscall('echo "curl" is required for using "ohMyZsh" ; sudo -p "[sudo]🔑 : " apt install curl')
                         syscall('sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"') 
 
                 
@@ -142,7 +142,7 @@ while True:
 
                     for package in packages:
 
-                        if syscall(('sudo apt install -f && sudo dpkg --configure -a ; sudo apt install %s  2> /dev/null ' 
+                        if syscall(('sudo -p "[sudo]🔑 : " apt install -f && sudo -p "[sudo]🔑 : " dpkg --configure -a ; sudo -p "[sudo]🔑 : " apt install %s  2> /dev/null ' 
                         % package))==0:
                             
                             if package[0] == '-':
@@ -154,7 +154,7 @@ while True:
                             print('%s%sPackage(s) or Command(s) : %s Status : found ! ...%s'
                             % (stuff.sysOk(), stuff.GRN, ' '.join(failed), stuff.NRM))
 
-                        elif syscall(('sudo apt install %s > /dev/null 2>&1' % package))==25600:
+                        elif syscall(('sudo -p "[sudo]🔑 : " apt install %s > /dev/null 2>&1' % package))==25600:
                             failed = list()
                             failed.append(package)
                             print('%s%sPackage(s) or Command(s) : %s Status : Not found ! ...%s'
@@ -162,7 +162,7 @@ while True:
                             syscall('sleep 1')
                                                         
 
-                        elif (syscall('sudo apt install %s 2> /dev/null ' 
+                        elif (syscall('sudo -p "[sudo]🔑 : " apt install %s 2> /dev/null ' 
                         % ' '.join(argv[2:]))) != 0 :
                                                     
                             # all the packages after "sudo apt install" assigned to the : packages variable
@@ -173,7 +173,7 @@ while True:
                                 #     print('%s%s\n"%s" is already the newest version %s'
                                 #     % (stuff.sysOk(), stuff.GRN, package, stuff.NRM))
                                 
-                                if (syscall('sudo apt install %s 2> /dev/null' % package))==25600:
+                                if (syscall('sudo -p "[sudo]🔑 : " apt install %s 2> /dev/null' % package))==25600:
                                     failed = list()
                                     failed.append(package)
                                     print('%s%sPackage(s) or Command(s) : "%s" Status : Not found ! ...'
@@ -202,7 +202,7 @@ while True:
                 # do :
                 elif argv[2:] != [] and argc >= 2:
                     print('%s%s\nCommand is valid!\n%s' % (stuff.sysOk(), stuff.GRN, stuff.YEL))
-                    syscall('sudo apt purge %s' % ' '.join(argv[2:]))
+                    syscall('sudo -p "[sudo]🔑 : " apt purge %s' % ' '.join(argv[2:]))
 
             # if argument 1 equal to "rm" (sudo apt remove)
             elif argv[1] == 'rm' and argc >= 2:
@@ -215,7 +215,7 @@ while True:
                 # do :
                 if argv[2:] != [] and argc>=2:
                     print('%s%s\nCommand is valid!\n%s' % (stuff.sysOk(), stuff.GRN, stuff.YEL))
-                    syscall('sudo apt remove %s' % ' '.join(argv[2:]))
+                    syscall('sudo -p "[sudo]🔑 : " apt remove %s' % ' '.join(argv[2:]))
 
                 # Exception
                 else:
@@ -228,7 +228,7 @@ while True:
             elif argv[1] =='tilix' and argc==2:
                 ans = input('install and run "tilix" terminal (y/n) ? ')
                 if (ans == 'y'):
-                    syscall('sudo apt install tilix  > /dev/null 2>&1 ;  tilix& > /dev/null 2>&1; clear')
+                    syscall('sudo -p "[sudo]🔑 : " apt install tilix  > /dev/null 2>&1 ;  tilix& > /dev/null 2>&1; clear')
                     
                 else:
                     break
@@ -249,14 +249,14 @@ while True:
             # if after pck3r equal to "sys"
             elif argv[1] == 'sys' and argc > 2:
                 if argv[2]=='update' and argc==3:
-                    syscall('sudo apt update')
+                    syscall('sudo -p "[sudo]🔑 : " apt update')
                     print('%s%s\nYour OS updated%s' % (stuff.sysOk(), stuff.GRN, stuff.NRM))
 
                 # if user command, equal to $ pck3r sys upgrade
                 #do :
                 elif argv[2] == 'upgrade' and argc==3:
                     
-                    if (syscall('sudo apt full-upgrade')) == 0:
+                    if (syscall('sudo -p "[sudo]🔑 : " apt full-upgrade')) == 0:
                         
                         # print with green logo  
                         print('%s%syour OS  upgraded' % (stuff.sysOk(), stuff.GRN))
@@ -284,7 +284,7 @@ while True:
                 #do :
                 elif argv[2] == 'updgr' and argc==3:
                     
-                    if (syscall('sudo apt update && sudo apt full-upgrade')) ==0:
+                    if (syscall('sudo -p "[sudo]🔑 : " apt update && sudo -p "[sudo]🔑 : " apt full-upgrade')) ==0:
                             
                         print('%s%syour OS updated and upgraded' % (stuff.sysOk(), stuff.GRN))
                         syscall('echo %s' % stuff.GRN)
@@ -310,12 +310,12 @@ while True:
 
                 # if after "pkg" isn't empty
                 if argv[2:] != [] and argc >= 2:
-                    syscall('sudo apt search %s' % ' '.join(argv[2:]))
+                    syscall('sudo -p "[sudo]🔑 : " apt search %s' % ' '.join(argv[2:]))
             
 
             # if user want to see the pck3r version
             elif argv[1] == 'version' and argc ==2:
-                chdir('%s/.pck3r' % getenv('HOME'))
+                chdir('/opt/pck3r')
                 syscall(f'echo {stuff.CYN}version is : `git describe --tags --abbrev=0` {stuff.YEL}{stuff.NRM}')
                 print(f'{stuff.NRM}{stuff.CYN}{", ".join(__authors__[:2])}, ...{stuff.NRM}')
           

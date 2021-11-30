@@ -28,7 +28,7 @@ from progress.bar import Bar
 
 ###############################################################################
 # preinstall requirements                                                     
-if syscall('sudo -p "🔑 : " mkdir -p /opt/pck3r/icon ; sudo cp -rf ./icon/pck3r-logo.png /opt/pck3r/icon')!=0:
+if syscall('sudo -p "[sudo]🔑 : " mkdir -p /opt/pck3r/icon ; sudo cp -f ./icon/pck3r-logo.png /opt/pck3r/icon')!=0:
     quit()
     
 elif syscall(
@@ -67,7 +67,7 @@ with Bar('INSTALLING', fill='\U0001F709', max=100) as bar:
 
     # 60% PROGRESS
     time.sleep(1)
-    if (syscall('sudo   ls -l /bin/pck3r > /dev/null 2>&1')) == 0:
+    if (syscall('sudo ls -l /bin/pck3r > /dev/null 2>&1')) == 0:
         pass
     else:
         syscall('notify-send --icon="/$(pwd)/icon/pck3r-logo.png" "尸⼕长㇌尺 : No link"')
