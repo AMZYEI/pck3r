@@ -20,93 +20,62 @@ __authors__ = ['M.Amin Azimi .K(amzy-0)', 'https://github.com/amzy-0/pck3r/graph
 
 
 from libs import stuff
-from os import  getcwd, getenv, chdir
 from os import system as syscall
+# install dependancies 
+syscall('pip install progress')
+
+from progress.bar import Bar
+
 ###############################################################################
 # preinstall requirements                                                     
-if syscall('mkdir -p ~/.pck3r/icon ; cp -rf ./icon/pck3r-logo.png ~/.pck3r/icon')!=0:
+if syscall('sudo -p "🔑 : " mkdir -p /opt/pck3r/icon ; sudo cp -rf ./icon/pck3r-logo.png /opt/pck3r/icon')!=0:
     quit()
     
 elif syscall(
-    'sudo apt install python3-tk python3-pil python3-pil.imagetk libnotify-bin -y > /dev/null;clear'
+    'sudo  apt install libnotify-bin python3-pip && sudo pip install progress'
     ) != 0:                                                                                     
     quit()
 ###############################################################################
 
-import tkinter as tk
-from tkinter.ttk import *
 import time
-from PIL import ImageTk,Image
 
-# creating tkinter window
-root = tk.Tk()
-
-
-make_link = 'sudo ln -s %s/.pck3r/core_pck3r.py /bin/pck3r' % getenv('HOME')
+make_link = ' sudo   ln -s  /opt/pck3r/core_pck3r.py /bin/pck3r'
 
 # Progress bar widget
-progress = Progressbar(root, length = 100, mode = 'determinate')
 
 # Function responsible for the updation
 # of the progress bar value
-def bar():
 
-    # 20% PROGRESS
-    progress['value'] = 20
-    root.update_idletasks()
-    time.sleep(1)
-    syscall('sudo unlink /bin/pck3r > /dev/null 2>&1')
+with Bar('INSTALLING', fill='\U0001F709', max=100) as bar:
+
+    # 20% PROGRESS 
+    syscall(' sudo   unlink /bin/pck3r > /dev/null 2>&1')
+    bar.next(20)
 
     # 40% PROGRESS
-    progress['value'] = 40
-    root.update_idletasks()
     time.sleep(1)
    
-    syscall('rm -rf ~/.pck3r')
-    syscall('mkdir ~/.pck3r')
-    syscall('cp -rf . ~/.pck3r')
+    syscall('sudo   rm -rf /opt/pck3r')
+    syscall('sudo   mkdir /opt/pck3r')
+    syscall('sudo   cp -rf . /opt/pck3r')
+    bar.next(20)
 
     # 50% PROGRESS
-    progress['value'] = 50
-    root.update_idletasks()
     time.sleep(1)
     syscall(make_link)
+    bar.next(10)
 
     # 60% PROGRESS
-    progress['value'] = 60
-    root.update_idletasks()
     time.sleep(1)
-    
-    if (syscall('ls -l /bin/pck3r > /dev/null 2>&1')) == 0:
+    if (syscall('sudo   ls -l /bin/pck3r > /dev/null 2>&1')) == 0:
         pass
     else:
         syscall('notify-send --icon="/$(pwd)/icon/pck3r-logo.png" "尸⼕长㇌尺 : No link"')
     
-    progress['value'] = 80
-    root.update_idletasks()
+
     time.sleep(1)
+    bar.next(10)
 
     # 100% PROGRESS
-    progress['value'] = 100
-    syscall('''notify-send --icon="/$(pwd)/icon/pck3r-logo.png"\\
-        "尸⼕长㇌尺 :Link created &\n installed successfuly"''')
-    
-    root.quit()
-
-
-# packing to main window (panel)
-icon = Image.open('%s/.pck3r/icon/pck3r-logo.png' % getenv('HOME'))
-root.title('Pck3r Installer')
-photo = ImageTk.PhotoImage(icon)
-root.wm_iconphoto(False, photo)
-root.geometry('400x80')
-root.configure(background='black')
-root.resizable(False, False)
-progress.pack(fill='x', pady = 10)
-installBtn = tk.Button(root, text='install pck3r (system wide) ', command = bar)
-installBtn.configure(fg='white', bg='darkblue',)
-installBtn.focus()
-installBtn.pack(fill='x', pady = 10)
-
-# infinite loop
-tk.mainloop()
+    bar.next(40)
+    print('\n%s\bLink created and installed successfuly' % (stuff.sysOk()))
