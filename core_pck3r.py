@@ -50,13 +50,15 @@ $ pck3r sys <update/upgrade/updgr(update and upgrade)>%s'''
             if (syscall('ping -c2 4.2.2.4 > /dev/null 2>&1')) != 0:
                 print('%s%sNetwork is unreachable\n%s' 
                 % (stuff.sysERR(),stuff.RED, stuff.NRM))
+                
                 break
             
             # if user just type $ pck3r
             elif argc <= 1:
-                    print('%s%sAfter "pck3r" is empty!\n%s\nPlease try:\n$ pck3r help %s\n' 
-                        %  (stuff.sysERR(), stuff.RED, stuff.CYN, stuff.NRM))
-
+                print('%s%sAfter "pck3r" is empty!\n%s\nPlease try:\n$ pck3r help %s\n' 
+                %  (stuff.sysERR(), stuff.RED, stuff.CYN, stuff.NRM))
+                break
+            
             else:
 
                 # if argument 1 equal to "clear"
@@ -84,6 +86,7 @@ $ pck3r sys <update/upgrade/updgr(update and upgrade)>%s'''
                 elif argv[1] == 'help' and argc == 2:
                     from libs import help
                     break
+
                 # if argument 1 equal to "install"
                 # and argument 2 is not empty
                 # do :
@@ -98,7 +101,7 @@ $ pck3r sys <update/upgrade/updgr(update and upgrade)>%s'''
                         from libs import flstudio
 
                     # if argument 2 is nodejs
-                    elif argv[2]=='nodejs' and argc==3:
+                    elif argv[2] == 'nodejs' and argc == 3:
 
                         if (syscall(
                             '''echo %s ; 
@@ -135,7 +138,7 @@ $ pck3r sys <update/upgrade/updgr(update and upgrade)>%s'''
 
                     # wine installer blocks
                     # command : $ pck3r install  wine 
-                    elif argv[2] == 'wine' and argc==3:
+                    elif argv[2] == 'wine' and argc == 3:
                         wine.wine_installer()
 
                     # argument 2 is not empty
@@ -187,10 +190,11 @@ $ pck3r sys <update/upgrade/updgr(update and upgrade)>%s'''
                                         print('%s%sPackage(s) or Command(s) : "%s" Status : Not found ! ...'
                                         % (stuff.sysERR(), stuff.RED, ' '.join(failed)), end='')
                                         syscall('sleep 1')
-                                        break
                                     
                                     print(stuff.NRM)
-                                    break
+     
+                    break
+
 
                 # if argument 1 equal to "uninstall"
                 elif argv[1] == 'uninstall' and argc >= 2:
@@ -212,6 +216,8 @@ $ pck3r sys <update/upgrade/updgr(update and upgrade)>%s'''
                         print('%s%s\nCommand is valid!\n%s' % (stuff.sysOk(), stuff.GRN, stuff.YEL))
                         syscall(' sudo  -p "[sudo password]🔑: " apt purge %s ;  sudo  -p "[sudo password]🔑: " apt autoremove -y' % ' '.join(argv[2:]))
 
+                    break
+                
                 # if argument 1 equal to "rm" (sudo apt remove)
                 elif argv[1] == 'rm' and argc >= 2:
 
@@ -228,8 +234,7 @@ $ pck3r sys <update/upgrade/updgr(update and upgrade)>%s'''
                     # Exception
                     else:
                         print('%sCommand or package(s) not found : %s' % (stuff.sysERR(), ' '.join(argv[2:])))
-
-
+                    
                 # Too many arguments error for $ pck3r term
                 # Only use :
                 # $ pck3r tilix <somthing> <somthing> <somthing> <somthing>, ...
@@ -336,7 +341,7 @@ $ pck3r sys <update/upgrade/updgr(update and upgrade)>%s'''
                 else:
                     print('%s%sCommand not found !%s\nPlease try:\n$ pck3r help %s'
                         % (stuff.sysERR(), stuff.RED, stuff.CYN, stuff.NRM))
-                    
+        
             # end of (for) loop
             break
 
