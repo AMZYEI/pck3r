@@ -38,7 +38,6 @@ $ chmod 755 installer.py ; ./installer.py
 else:
     
     from . import stuff
-    from . import wine
     from os import system as syscall
     from os import chdir, getenv
 

@@ -19,7 +19,6 @@ limitations under the License.
 __authors__ = ['M.Amin Azimi .K(amzy-0)', 'https://github.com/amzy-0/pck3r/graphs/contributors']
 
 from os import system as syscall
-from os import chdir, getcwd, getenv
 
 
 if __name__ == "__main__":
