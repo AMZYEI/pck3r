@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+#!/usr/bin/python3
+
 """ 
 Copyright [2020-2021] [M.Amin Azimi .K (amzy-0)]
 
@@ -26,321 +28,305 @@ from libs import stuff
 from libs import dotnet
 from libs import wine
 
+argc = len(argv)
 
-def main():
-    '''The Main function (entry point)'''
-    # sudo password prompt
-    
-    # the Pck3r entry point
-    argc = len(argv)
-
-    def error_sys(): 
-        print('''%s%s
+def error_sys(): 
+    print('''%s%s
 After "sys" is empty !
 
 Please try:
 $ pck3r sys <update/upgrade/updgr(update and upgrade)>%s'''
-        % (stuff.sysERR() , stuff.RED, stuff.NRM))
+    % (stuff.sysERR() , stuff.RED, stuff.NRM))
 
 
-    
-    for i in range(argc):
-
-            # check network connection, if internet not avalable BREAK the operation
-            if (syscall('ping -c2 4.2.2.4 > /dev/null 2>&1')) != 0:
-                print('%s%sNetwork is unreachable\n%s' 
-                % (stuff.sysERR(),stuff.RED, stuff.NRM))
+ 
+for i in range(argc):
+        # check network connection, if internet not avalable BREAK the operation
+        if (syscall('ping -c2 4.2.2.4 > /dev/null 2>&1')) != 0:
+            print('%s%sNetwork is unreachable\n%s' 
+            % (stuff.sysERR(),stuff.RED, stuff.NRM))
+            break
+        # if user just type $ pck3r
+        if argc <= 1:
+                print('%s%sAfter "pck3r" is empty!\n%s\nPlease try:\n$ pck3r help %s\n' 
+                    %  (stuff.sysERR(), stuff.RED, stuff.CYN, stuff.NRM))
                 break
+        else:
+
+            # if argument 1 equal to "clear"
+            # clear terminal
+            # do :
+            if argv[1] == 'clear' and argc == 2:
+                syscall('clear')
+                print('%sThis is funny clear command :D ' 
+                % stuff.sysOk())
             
-            # if user just type $ pck3r
-            elif argc <= 1:
-                    print('%s%sAfter "pck3r" is empty!\n%s\nPlease try:\n$ pck3r help %s\n' 
-                        %  (stuff.sysERR(), stuff.RED, stuff.CYN, stuff.NRM))
+            # pck3r updator
+            elif argv[1] == 'update' and argc == 2:
+                
+                if (syscall('ls %s/.pck3r > /dev/null 2<&1' % getenv('HOME')))==0:
+                    chdir('%s/.pck3r' % getenv('HOME'))
+                    syscall('git pull')
+                else:
+                    print('''%s%sYou can not update pck3r with the "root" permission
+                    %s'''
+                    %(stuff.sysERR(), stuff.RED, stuff.NRM))
 
-            else:
+            # if argument 1 equal to "help"
+            # like -> $ pck3r help
+            # do :
+            elif argv[1] == 'help' and argc == 2:
+                from libs import help
 
-                # if argument 1 equal to "clear"
-                # clear terminal
-                # do :
-                if argv[1] == 'clear' and argc == 2:
-                    syscall('clear')
-                    print('%sThis is funny clear command :D ' 
-                    % stuff.sysOk())
+            # if argument 1 equal to "install"
+            # and argument 2 is not empty
+            # do :
+            elif argv[1] == 'install' and argc >= 2:
 
-                # pck3r updator
-                elif argv[1] == 'update' and argc == 2:
+                # if after install is empty
+                if argv[1]== 'install' and argc <= 2:
+                    print('%s%sAfter "install" is empty !%s ' 
+                    % (stuff.sysERR() , stuff.RED, stuff.NRM))
+                
+                elif argv[2] == 'flstudio' and argc == 3:
+                    from libs import flstudio
 
-                    if (syscall('ls /opt/pck3r > /dev/null 2<&1')) == 0:
-                        chdir('/opt/pck3r')
-                        syscall('sudo -p "[sudo password]🔑: " git pull; sudo git restore .; ./installer.py ')
-                    else:
-                        print('''%s%sYou can not update pck3r with the "root" permission
-                        %s'''
-                        %(stuff.sysERR(), stuff.RED, stuff.NRM))
-                    break   
-                # if argument 1 equal to "help"
-                # like -> $ pck3r help
-                # do :
-                elif argv[1] == 'help' and argc == 2:
-                    from libs import help
-                    break
-                # if argument 1 equal to "install"
-                # and argument 2 is not empty
-                # do :
-                elif argv[1] == 'install' and argc >= 2:
+                # if argument 2 is nodejs
+                elif argv[2]=='nodejs' and argc==3:
 
-                    # if after install is empty
-                    if argv[1]== 'install' and argc <= 2:
-                        print('%s%sAfter "install" is empty !%s ' 
-                        % (stuff.sysERR() , stuff.RED, stuff.NRM))
+                    if (syscall(
+                        '''echo %s ; 
+                            curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -; sudo apt install -y nodejs 
+                            sudo apt update && echo %s;
+                            echo %s;
+                            sudo apt install yarnpkg -y''' 
+                        % (stuff.YEL, stuff.CYN, stuff.MAG)))==0:
 
-                    elif argv[2] == 'flstudio' and argc == 3:
-                        from libs import flstudio
+                        print('%s' % stuff.sysOk())
 
-                    # if argument 2 is nodejs
-                    elif argv[2]=='nodejs' and argc==3:
-
-                        if (syscall(
-                            '''echo %s ; 
-                                curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -p "[sudo password]🔑: " -E bash
-                                 -; sudo apt install -y nodejs 
-                                sudo apt update && echo %s;
-                                echo %s;
-                                sudo apt install yarnpkg -y''' 
-                            % (stuff.YEL, stuff.CYN, stuff.MAG))) == 0:
-
-                            print('%s' % stuff.sysOk())
-
-                            syscall('echo %s"Nodejs LTS Version :" ;  node --version %s' 
-                            %(stuff.GRN, stuff.NRM))
-                            syscall('echo "Npm Version :" %s; npm --version %s' 
-                            %(stuff.GRN, stuff.NRM))
-
-                            # Exception
-                        else:
-                            print('%s%s\nplease retry...\n$ pck3r install nodejs%s ' 
-                            % (stuff.sysERR() , stuff.RED, stuff.NRM))
-
-                    elif argv[2] == 'dotnet' and argc==3:
-                        dotnet.install_dotnet()
-
-                    elif argv[2] == 'ohmyzsh' and argc==3:
-                        syscall(' sudo  -p "[sudo password]🔑: " apt install zsh curl')
-                        if (syscall('curl --version')) == 0 :
-                            syscall('sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"') 
-                        else:
-                            syscall('echo "curl" is required for using "ohMyZsh" ;  sudo  -p "[sudo password]🔑: " apt install curl')
-                            syscall('sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"') 
-
-
-                    # wine installer blocks
-                    # command : $ pck3r install  wine 
-                    elif argv[2] == 'wine' and argc==3:
-                        wine.wine_installer()
-
-                    # argument 2 is not empty
-
-                    elif argv[2:] != [] and argc >= 2:
-                        print('%s%s\nCommand is valid : "$ pck3r install"\nLoading package lists...\n%s' 
-                        % (stuff.sysOk(), stuff.GRN, stuff.YEL))
-
-                        packages = argv[2:]
-                        packages = list(packages)
-
-
-                        for package in packages:
-
-                            if syscall(('sudo -p "[sudo password]🔑: " apt install -f && sudo dpkg --configure -a ;  sudo apt install %s  2> /dev/null ' 
-                            % package)) == 0:
-                                failed = list()
-                                # if the switch inserted '-X'
-                                if package[0] == '-':
-                                    continue
-
-                                failed.append(package)
-                                syscall("echo %s; %s --version" % (stuff.GRN, package))
-                                print('%s%sPackage(s) or Command(s) : %s Status : found ! ...%s'
-                                % (stuff.sysOk(), stuff.GRN, ' '.join(failed), stuff.NRM))
-
-                            elif syscall((' sudo  -p "[sudo password]🔑: " apt install %s > /dev/null 2>&1' % package))==25600:
-                                failed = list()
-                                failed.append(package)
-                                print('%s%sPackage(s) or Command(s) : %s Status : Not found ! ...%s'
-                                % (stuff.sysERR(), stuff.RED, ' '.join(failed), stuff.NRM))
-                                syscall('sleep 1')
-
-
-                            elif (syscall(' sudo  -p "[sudo password]🔑: " apt install %s 2> /dev/null ' 
-                            % ' '.join(argv[2:]))) != 0 :
-
-                                # all the packages after "sudo apt install" assigned to the : packages variable
-
-                                for package in packages: #validation
-
-                                    # if(syscall('%s --version 2> /dev/null' % package)) == 0:
-                                    #     print('%s%s\n"%s" is already the newest version %s'
-                                    #     % (stuff.sysOk(), stuff.GRN, package, stuff.NRM))
-
-                                    if (syscall(' sudo  -p "[sudo password]🔑: " apt install %s 2> /dev/null' % package))==25600:
-                                        failed = list()
-                                        failed.append(package)
-                                        print('%s%sPackage(s) or Command(s) : "%s" Status : Not found ! ...'
-                                        % (stuff.sysERR(), stuff.RED, ' '.join(failed)), end='')
-                                        syscall('sleep 1')
-                                        break
-                                    
-                                    print(stuff.NRM)
-                                    break
-
-                # if argument 1 equal to "uninstall"
-                elif argv[1] == 'uninstall' and argc >= 2:
-
-                    # if after "uninstall" is empty
-                    if argv[1] == 'uninstall' and argc <= 2:
-
-                        print('%s %sAfter "uninstall" is empty !%s ' 
-                        % (stuff.sysERR() , stuff.RED, stuff.NRM))
-
-                    # if user want uninstall dotnet 
-                    # do :
-                    elif argv[2]=='dotnet' and argc==3:
-                        dotnet.uninstall_dotnet()
-
-                    # argument 2 is not empty
-                    # do :
-                    elif argv[2:] != [] and argc >= 2:
-                        print('%s%s\nCommand is valid!\n%s' % (stuff.sysOk(), stuff.GRN, stuff.YEL))
-                        syscall(' sudo  -p "[sudo password]🔑: " apt purge %s ;  sudo  -p "[sudo password]🔑: " apt autoremove -y' % ' '.join(argv[2:]))
-
-                # if argument 1 equal to "rm" (sudo apt remove)
-                elif argv[1] == 'rm' and argc >= 2:
-
-                    # if after install is empty
-                    if argv[1]== 'rm' and argc<=2:
-                        print('%s %sAfter "rm" is empty !%s ' % (stuff.sysERR() , stuff.RED, stuff.NRM))
-
-                    #  argument 2 is not empty
-                    # do :
-                    if argv[2:] != [] and argc>=2:
-                        print('%s%s\nCommand is valid!\n%s' % (stuff.sysOk(), stuff.GRN, stuff.YEL))
-                        syscall(' sudo  -p "[sudo password]🔑: " apt remove %s' % ' '.join(argv[2:]))
-
-                    # Exception
-                    else:
-                        print('%sCommand or package(s) not found : %s' % (stuff.sysERR(), ' '.join(argv[2:])))
-
-
-                # Too many arguments error for $ pck3r term
-                # Only use :
-                # $ pck3r tilix <somthing> <somthing> <somthing> <somthing>, ...
-                elif argv[1] =='tilix' and argc==2:
-                    ans = input('install and run "tilix" terminal (y/n) ? ')
-                    if (ans == 'y'):
-                        syscall('')
-
-                    else:
-                        break
-
-
-                # Too many arguments error for $ pck3r tilix
-                # Only use :
-                # $ pck3r tilix <somthing> <somthing> <somthing> <somthing>, ...
-                elif argv[1] =='tilix' and argc>2:
-                        print('%s%sToo many arguments !\nOnly use :\n$ pck3r term %s' % (stuff.sysERR(), stuff.RED, stuff.NRM))
-
-
-                # if after "sys" command is empty
-                elif argv[1] == 'sys' and argc == 2:
-                    error_sys()
-
-
-                # if after pck3r equal to "sys"
-                if argv[1] == 'sys' and argc > 2:
-                    if argv[2]=='update' and argc==3:
-                        syscall(' sudo  -p "[sudo password]🔑: " apt update')
-                        print('%s%s\nYour OS have been updated%s' % (stuff.sysOk(), stuff.GRN, stuff.NRM))
-
-                    # if user command, equal to $ pck3r sys upgrade
-                    #do :
-                    elif argv[2] == 'upgrade' and argc==3:
-
-                        if (syscall(' sudo  -p "[sudo password]🔑: " apt full-upgrade')) == 0:
-
-                            # print with green logo  
-                            print('%s%sYour OS have been upgraded' % (stuff.sysOk(), stuff.GRN))
-                            # echo green color and 
-                            # and say:
-                            syscall('echo %s' % stuff.GRN)
-
-                            # All information about OS 
-                            syscall('echo Your OS information :')
-                            syscall('uname -a ')
-
-                            # the machine architecture 
-                            syscall('echo Your machine architecture : ')
-                            syscall('uname -p')
-                            # end of the all information and 
-                            #back to the true color of this terminal 
-                            syscall('echo %s' % stuff.NRM)
+                        syscall('echo %s"Nodejs LTS Version :" ;  node --version %s' 
+                        %(stuff.GRN, stuff.NRM))
+                        syscall('echo "Npm Version :" %s; npm --version %s' 
+                        %(stuff.GRN, stuff.NRM))
 
                         # Exception
-                        else:
-                            error_sys()
+                    else:
+                        print('%s%s\nplease retry...\n$ pck3r install nodejs%s ' 
+                        % (stuff.sysERR() , stuff.RED, stuff.NRM))
+
+                elif argv[2] == 'dotnet' and argc==3:
+                    dotnet.install_dotnet()
+
+                elif argv[2] == 'ohmyzsh' and argc==3:
+                    syscall('sudo apt install zsh curl')
+                    if (syscall('curl --version')) == 0 :
+                        syscall('sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"') 
+                    else:
+                        syscall('echo "curl" is required for using "ohMyZsh" ; sudo apt install curl')
+                        syscall('sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"') 
+
+                
+                # wine installer blocks
+                # command : $ pck3r install  wine 
+                elif argv[2] == 'wine' and argc==3:
+                    wine.wine_installer()
+
+                # argument 2 is not empty
+
+                elif argv[2:] != [] and argc >= 2:
+                    print('%s%s\nCommand is valid : "$ pck3r install"\nLoading package lists...\n%s' 
+                    % (stuff.sysOk(), stuff.GRN, stuff.YEL))
+
+                    packages = argv[2:]
+                    packages = list(packages)
 
 
-                    # if user command, equal to $ pck3r sys updgr
-                    #do :
-                    elif argv[2] == 'updgr' and argc==3:
+                    for package in packages:
 
-                        if (syscall('  sudo  -p "[sudo password]🔑: " apt update && sudo apt full-upgrade')) == 0:
-                                print('%s%sAll packages have been updated and upgraded.'
-                                % (stuff.sysOk(), stuff.GRN))
-                                syscall('echo %s' % stuff.GRN)
-                                syscall('echo Your OS information :')
-                                syscall('uname -a ')
-                                syscall('echo Your machine architecture : ')
-                                syscall('uname -p')
-                                syscall('echo %s' % stuff.NRM)
+                        if syscall(('sudo apt install -f && sudo dpkg --configure -a ; sudo apt install %s  2> /dev/null ' 
+                        % package))==0:
                             
-                        else:
-                            print("%s : "%stuff.sysERR())
+                            if package[0] == '-':
+                                continue
                             
-                    # if command is not a valid one !
-                    # will send an error to the user.
-                    # do :
+                            failed = list()
+                            failed.append(package)
+                            syscall("echo %s; %s --version" % (stuff.GRN, package))
+                            print('%s%sPackage(s) or Command(s) : %s Status : found ! ...%s'
+                            % (stuff.sysOk(), stuff.GRN, ' '.join(failed), stuff.NRM))
+
+                        elif syscall(('sudo apt install %s > /dev/null 2>&1' % package))==25600:
+                            failed = list()
+                            failed.append(package)
+                            print('%s%sPackage(s) or Command(s) : %s Status : Not found ! ...%s'
+                            % (stuff.sysERR(), stuff.RED, ' '.join(failed), stuff.NRM))
+                            syscall('sleep 1')
+                                                        
+
+                        elif (syscall('sudo apt install %s 2> /dev/null ' 
+                        % ' '.join(argv[2:]))) != 0 :
+                                                    
+                            # all the packages after "sudo apt install" assigned to the : packages variable
+                            
+                            for package in packages: #validation
+
+                                # if(syscall('%s --version 2> /dev/null' % package))==0:
+                                #     print('%s%s\n"%s" is already the newest version %s'
+                                #     % (stuff.sysOk(), stuff.GRN, package, stuff.NRM))
+                                
+                                if (syscall('sudo apt install %s 2> /dev/null' % package))==25600:
+                                    failed = list()
+                                    failed.append(package)
+                                    print('%s%sPackage(s) or Command(s) : "%s" Status : Not found ! ...'
+                                    % (stuff.sysERR(), stuff.RED, ' '.join(failed)), end='')
+                                    syscall('sleep 1')
+                                    break
+                         
+                                print(stuff.NRM)
+                                break
+
+            # if argument 1 equal to "uninstall"
+            elif argv[1] == 'uninstall' and argc >= 2:
+
+                # if after "uninstall" is empty
+                if argv[1] == 'uninstall' and argc <= 2:
+
+                    print('%s %sAfter "uninstall" is empty !%s ' 
+                    % (stuff.sysERR() , stuff.RED, stuff.NRM))
+                
+                # if user want uninstall dotnet 
+                # do :
+                elif argv[2]=='dotnet' and argc==3:
+                    dotnet.uninstall_dotnet()
+
+                # argument 2 is not empty
+                # do :
+                elif argv[2:] != [] and argc >= 2:
+                    print('%s%s\nCommand is valid!\n%s' % (stuff.sysOk(), stuff.GRN, stuff.YEL))
+                    syscall('sudo apt purge %s' % ' '.join(argv[2:]))
+
+            # if argument 1 equal to "rm" (sudo apt remove)
+            elif argv[1] == 'rm' and argc >= 2:
+
+                # if after install is empty
+                if argv[1]== 'rm' and argc<=2:
+                    print('%s %sAfter "rm" is empty !%s ' % (stuff.sysERR() , stuff.RED, stuff.NRM))
+
+                #  argument 2 is not empty
+                # do :
+                if argv[2:] != [] and argc>=2:
+                    print('%s%s\nCommand is valid!\n%s' % (stuff.sysOk(), stuff.GRN, stuff.YEL))
+                    syscall('sudo apt remove %s' % ' '.join(argv[2:]))
+
+                # Exception
+                else:
+                    print('%sCommand or package(s) not found : %s' % (stuff.sysERR(), ' '.join(argv[2:])))
+
+
+            # Too many arguments error for $ pck3r term
+            # Only use :
+            # $ pck3r tilix <somthing> <somthing> <somthing> <somthing>, ...
+            elif argv[1] =='tilix' and argc==2:
+                ans = input('install and run "tilix" terminal (y/n) ? ')
+                if (ans == 'y'):
+                    syscall('sudo apt install tilix  > /dev/null 2>&1 ;  tilix& > /dev/null 2>&1; clear')
+                    
+                else:
+                    break
+
+
+            # Too many arguments error for $ pck3r tilix
+            # Only use :
+            # $ pck3r tilix <somthing> <somthing> <somthing> <somthing>, ...
+            elif argv[1] =='tilix' and argc>2:
+                    print('%s%sToo many arguments !\nOnly use :\n$ pck3r term %s' % (stuff.sysERR(), stuff.RED, stuff.NRM))
+
+
+            # if after "sys" command is empty
+            elif argv[1] == 'sys' and argc == 2:
+                error_sys()
+
+
+            # if after pck3r equal to "sys"
+            elif argv[1] == 'sys' and argc > 2:
+                if argv[2]=='update' and argc==3:
+                    syscall('sudo apt update')
+                    print('%s%s\nYour OS updated%s' % (stuff.sysOk(), stuff.GRN, stuff.NRM))
+
+                # if user command, equal to $ pck3r sys upgrade
+                #do :
+                elif argv[2] == 'upgrade' and argc==3:
+                    
+                    if (syscall('sudo apt full-upgrade')) == 0:
+                        
+                        # print with green logo  
+                        print('%s%syour OS  upgraded' % (stuff.sysOk(), stuff.GRN))
+                        # echo green color and 
+                        # and say:
+                        syscall('echo %s' % stuff.GRN)
+                    
+                        # All information about OS 
+                        syscall('echo your OS information :')
+                        syscall('uname -a ')
+
+                        # the machine architecture 
+                        syscall('echo your machine architecture : ')
+                        syscall('uname -p')
+                        # end of the all information and 
+                        #back to the true color of this terminal 
+                        syscall('echo %s' % stuff.NRM)
+                    
+                    # Exception
                     else:
                         error_sys()
+                        
 
-
-                # if after "pkg" is empty
-                elif argv[1]== 'pkg' and argc <= 2:
-                    print('%s%sAfter "pkg" is empty !%s ' % (stuff.sysERR() , stuff.RED, stuff.NRM))
-
-                # if after "pkg" is not empty
-                elif argv[1] == 'pkg' and argc >= 2:
-
-                    # if after "pkg" isn't empty
-                    if argv[2:] != [] and argc >= 2:
-                        syscall('apt search %s' % ' '.join(argv[2:]))
-
-
-                # if user want to see the pck3r version
-                elif argv[1] == 'version' and argc ==2:
-                    chdir('/opt/pck3r')
-                    syscall(f'echo {stuff.CYN}version is : `git describe --tags --abbrev=0` {stuff.YEL}{stuff.NRM}')
-                    print(f'{stuff.NRM}{stuff.CYN}{", ".join(__authors__[:2])}, ...{stuff.NRM}')
-                                    
-                # if command not valid 
-                # print :
-                # and breaking any operation  
-                else:
-                    print('%s%sCommand not found !%s\nPlease try:\n$ pck3r help %s'
-                        % (stuff.sysERR(), stuff.RED, stuff.CYN, stuff.NRM))
+                # if user command, equal to $ pck3r sys updgr
+                #do :
+                elif argv[2] == 'updgr' and argc==3:
                     
-            # end of (for) loop
-            break
+                    if (syscall('sudo apt update && sudo apt full-upgrade')) ==0:
+                            
+                        print('%s%syour OS updated and upgraded' % (stuff.sysOk(), stuff.GRN))
+                        syscall('echo %s' % stuff.GRN)
+                        syscall('echo your OS information :')
+                        syscall('uname -a ')
+                        syscall('echo your machine architecture : ')
+                        syscall('uname -p')
+                        syscall('echo %s' % stuff.NRM)
+                                    
+                # if command is not a valid one !
+                # will send an error to the user.
+                # do :
+                else:
+                    error_sys()
 
+                    
+            # if after "pkg" is empty
+            elif argv[1]== 'pkg' and argc <= 2:
+                print('%s%sAfter "pkg" is empty !%s ' % (stuff.sysERR() , stuff.RED, stuff.NRM))
+            
+            # if after "pkg" is not empty
+            elif argv[1] == 'pkg' and argc >= 2:
 
-if __name__ == '__main__':
-    # run the pck3r core
-    main()
+                # if after "pkg" isn't empty
+                if argv[2:] != [] and argc >= 2:
+                    syscall('sudo apt search %s' % ' '.join(argv[2:]))
+            
+
+            # if user want to see the pck3r version
+            elif argv[1] == 'version' and argc ==2:
+                chdir('%s/.pck3r' % getenv('HOME'))
+                syscall(f'echo {stuff.CYN}version is : `git describe --tags --abbrev=0` {stuff.YEL}{stuff.NRM}')
+                print(f'{stuff.NRM}{stuff.CYN}{", ".join(__authors__[:2])}, ...{stuff.NRM}')
+          
+
+            # if command not valid 
+            # print :
+            # and breaking any operation  
+            else:
+                print('%s%sCommand not found !%s\nPlease try:\n$ pck3r help %s'
+                 % (stuff.sysERR(), stuff.RED, stuff.CYN, stuff.NRM))
+
+        # end of (for) loop
+        break
