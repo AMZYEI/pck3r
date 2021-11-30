@@ -39,8 +39,7 @@ $ pck3r sys <update/upgrade/updgr(update and upgrade)>%s'''
     % (stuff.sysERR() , stuff.RED, stuff.NRM))
 
 
- 
-for i in range(argc):
+while True:
         # check network connection, if internet not avalable BREAK the operation
         if (syscall('ping -c2 4.2.2.4 > /dev/null 2>&1')) != 0:
             print('%s%sNetwork is unreachable\n%s' 
@@ -50,7 +49,7 @@ for i in range(argc):
         if argc <= 1:
                 print('%s%sAfter "pck3r" is empty!\n%s\nPlease try:\n$ pck3r help %s\n' 
                     %  (stuff.sysERR(), stuff.RED, stuff.CYN, stuff.NRM))
-                break
+                
         else:
 
             # if argument 1 equal to "clear"
@@ -183,7 +182,7 @@ for i in range(argc):
                                     break
                          
                                 print(stuff.NRM)
-                                break
+                            break
 
             # if argument 1 equal to "uninstall"
             elif argv[1] == 'uninstall' and argc >= 2:
