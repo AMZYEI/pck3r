@@ -249,17 +249,20 @@ while True:
             # if after pck3r equal to "sys"
             elif argv[1] == 'sys' and argc > 2:
                 if argv[2]=='update' and argc==3:
-                    syscall('sudo -p "[sudo]🔑 : " apt update')
-                    print('%s%s\nYour OS updated%s' % (stuff.sysOk(), stuff.GRN, stuff.NRM))
-
+                    if (syscall('sudo -p "[sudo]🔑 : " apt update')) == 0:
+                        print('%s%s\nAll package(s) status : UPDATED%s' % (stuff.sysOk(), stuff.GRN, stuff.NRM))
+                    else:
+                        print(stuff.sysERR())
                 # if user command, equal to $ pck3r sys upgrade
                 #do :
                 elif argv[2] == 'upgrade' and argc==3:
                     
-                    if (syscall('sudo -p "[sudo]🔑 : " apt full-upgrade')) == 0:
-                        
+                    if (syscall('sudo -p "[sudo]🔑 : " apt full-upgrade')) != 0:
+                        print('%s' %stuff.sysERR())
+
+                    else:                       
                         # print with green logo  
-                        print('%s%syour OS  upgraded' % (stuff.sysOk(), stuff.GRN))
+                        print('%s%sAll package(s) status : UPGRADED' % (stuff.sysOk(), stuff.GRN))
                         # echo green color and 
                         # and say:
                         syscall('echo %s' % stuff.GRN)
@@ -275,18 +278,18 @@ while True:
                         #back to the true color of this terminal 
                         syscall('echo %s' % stuff.NRM)
                     
-                    # Exception
-                    else:
-                        error_sys()
+                    
                         
 
                 # if user command, equal to $ pck3r sys updgr
                 #do :
                 elif argv[2] == 'updgr' and argc==3:
                     
-                    if (syscall('sudo -p "[sudo]🔑 : " apt update && sudo -p "[sudo]🔑 : " apt full-upgrade')) ==0:
-                            
-                        print('%s%syour OS updated and upgraded' % (stuff.sysOk(), stuff.GRN))
+                    if (syscall('sudo -p "[sudo]🔑 : " apt update && sudo -p "[sudo]🔑 : " apt full-upgrade')) != 0:
+                        print('%s' %stuff.sysERR())
+
+                    else:    
+                        print('%s%sAll package(s) status : UPDATED and UPGRADED' % (stuff.sysOk(), stuff.GRN))
                         syscall('echo %s' % stuff.GRN)
                         syscall('echo your OS information :')
                         syscall('uname -a ')
@@ -310,7 +313,7 @@ while True:
 
                 # if after "pkg" isn't empty
                 if argv[2:] != [] and argc >= 2:
-                    syscall('sudo -p "[sudo]🔑 : " apt search %s' % ' '.join(argv[2:]))
+                    syscall('apt search %s' % ' '.join(argv[2:]))
             
 
             # if user want to see the pck3r version
