@@ -30,11 +30,6 @@ from progress.bar import Bar
 # preinstall requirements                                                     
 if syscall('sudo -p "[sudo]🔑 : " mkdir -p /opt/pck3r/icon ; sudo cp -f ./icon/pck3r-logo.png /opt/pck3r/icon')!=0:
     quit()
-    
-elif syscall(
-    'sudo  apt install libnotify-bin python3-pip && sudo pip install progress'
-    ) != 0:                                                                                     
-    quit()
 ###############################################################################
 
 import time
