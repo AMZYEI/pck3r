@@ -50,7 +50,7 @@ with Bar('INSTALLING', fill='\U0001F709', max=100) as bar:
     # 40% PROGRESS
     time.sleep(1)
    
-    syscall('sudo rm -rf /opt/pck3r')
+    
     syscall('sudo cp -rf . /opt/pck3r')
     bar.next(20)
 
