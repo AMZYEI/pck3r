@@ -28,7 +28,7 @@ from progress.bar import Bar
 
 ###############################################################################
 # preinstall requirements                                                     
-if syscall('sudo -p "[sudo]🔑 : " mkdir -p /opt/pck3r/icon ; sudo cp -f ./icon/pck3r-logo.png /opt/pck3r/icon')!=0:
+if syscall('sudo -p "[sudo]🔑 : " mkdir -p /opt/pck3r/')!=0:
     quit()
 ###############################################################################
 
