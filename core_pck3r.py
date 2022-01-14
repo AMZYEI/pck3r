@@ -41,7 +41,7 @@ $ pck3r sys <update/upgrade/updgr(update and upgrade)>%s'''
 
 while True:
         # check network connection, if internet not avalable BREAK the operation
-        if (syscall('ping -c2 4.2.2.4 > /dev/null 2>&1')) != 0:
+        if (syscall('ping -c1 4.2.2.4 > /dev/null 2>&1')) != 0:
             print('%s%sNetwork is unreachable\n%s' 
             % (stuff.sysERR(),stuff.RED, stuff.NRM))
             break
@@ -65,7 +65,7 @@ while True:
                 
                 if (syscall('ls /opt/pck3r > /dev/null 2<&1'))==0:
                     chdir('/opt/pck3r')
-                    syscall('sudo -p "[sudo]🔑 : " git pull ; sudo -p "[sudo]🔑 : " git restore .; ./installer.py')
+                    syscall('sudo -p "[sudo]🔑 : " git pull ; sudo git restore .; ./installer.py')
                 else:
                     print('''%s%sYou can not update pck3r with the "root" permission
                     %s'''
