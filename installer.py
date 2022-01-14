@@ -50,9 +50,8 @@ with Bar('INSTALLING', fill='\U0001F709', max=100) as bar:
     # 40% PROGRESS
     time.sleep(1)
    
-    syscall('sudo   rm -rf /opt/pck3r')
-    syscall('sudo   mkdir /opt/pck3r')
-    syscall('sudo   cp -rf . /opt/pck3r')
+    syscall('sudo rm -rf /opt/pck3r')
+    syscall('sudo cp -rf . /opt/pck3r')
     bar.next(20)
 
     # 50% PROGRESS
@@ -65,7 +64,7 @@ with Bar('INSTALLING', fill='\U0001F709', max=100) as bar:
     if (syscall('sudo ls -l /bin/pck3r > /dev/null 2>&1')) == 0:
         pass
     else:
-        syscall('notify-send --icon="/$(pwd)/icon/pck3r-logo.png" "尸⼕长㇌尺 : No link"')
+        syscall('%s%sNO LINK ! (/bin/pck3r)%s' % (stuff.sysERR(), stuff.RED, stuff.NRM))
     
 
     time.sleep(1)
