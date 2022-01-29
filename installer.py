@@ -22,15 +22,17 @@ __authors__ = ['M.Amin Azimi .K(amzy-0)', 'https://github.com/amzy-0/pck3r/graph
 from libs import stuff
 from os import system as syscall
 # install dependancies 
+###############################################################################
+# preinstall requirements                                                     
+if syscall('sudo -p "[sudo]🔑" apt install python3-pip ; sudo mkdir -p /opt/pck3r/')!=0:
+    quit()
+###############################################################################
+
 syscall('pip install progress')
+
 
 from progress.bar import Bar
 
-###############################################################################
-# preinstall requirements                                                     
-if syscall('sudo -p "[sudo]🔑 : " mkdir -p /opt/pck3r/')!=0:
-    quit()
-###############################################################################
 
 import time
 
