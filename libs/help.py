@@ -38,15 +38,10 @@ else:
     from . import stuff
 
     print("""%s
-    -----------------------------------------
-    |                                       |
-    | pck3r : It is a versatile program and |
-    |                                       |
-    | you avoid using useless commands and  |
-    |                                       |
-    | it is written for Ubuntu...           |
-    |                                       |
-    -----------------------------------------
+
+Pck3r : It is a versatile program. 
+You avoid using useless commands, and it is written for Ubuntu.
+
 
 \"install\" command :
 

@@ -1,33 +1,15 @@
 
 ![release](https://img.shields.io/badge/release-0.3-blue) ![issues](https://img.shields.io/github/issues/amzy-0/pck3r)
-![]()
-![]()
-![]()
 # pck3r :
-pck3r : It is a versatile program and |
-    |                                       |
-    | you avoid using useless commands and  |
-    |                                       |
-    | it is written for Ubuntu..
+
+### It is a versatile program. 
+
+### You avoid using useless commands, and it is written for Ubuntu.
+
+
 # logo :
 
     尸⼕长㇌尺
-
-
-# about pck3r :
-
-    -----------------------------------------
-    |                                       |
-    | pck3r : It is a versatile program and |
-    |                                       |
-    | you avoid using useless commands and  |
-    |                                       |
-    | it is written for Ubuntu...           |
-    |                                       |
-    -----------------------------------------
-
-
-
 
 
 # system wide installation :
@@ -58,7 +40,6 @@ $ ./installer.py
 
     $ pck3r clear
     {clear your terminal }
-git branch --set-upstream-to=<remote>/<branch> master
 
     $ pck3r sys upgrade
     (upgrade your oprating system)
