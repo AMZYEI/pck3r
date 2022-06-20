@@ -42,7 +42,6 @@ else:
 Pck3r : It is a versatile program. 
 You avoid using useless commands, and it is written for Ubuntu.
 
-
 \"install\" command :
 
     $ pck3r install \"somthing\" :
