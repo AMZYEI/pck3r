@@ -4,21 +4,14 @@
 ![]()
 ![]()
 # pck3r :
-
-![Screenshot](screenshot/pck3r.png)
-
-This program created for novice in linux   and can handle almost things in ubuntu and all distributions  based on  debian(package manager : "apt")...
-the pcker project , started by amzy0(M.Amin azimi.K) and you can change Pck3r under GPL3 license ...
-you can send me a pull request in github : https://github.com/amzy-0/pck3r and features will be added soon ...
-good luck...
-
+pck3r : It is a versatile program and |
+    |                                       |
+    | you avoid using useless commands and  |
+    |                                       |
+    | it is written for Ubuntu..
 # logo :
 
     尸⼕长㇌尺
-
-# GUI logo :
-
-![GUI logo](icon/pck3r-logo.png)
 
 
 # about pck3r :
@@ -50,7 +43,7 @@ $ ./installer.py
 
 # pck3r commands
 
-"install" command :
+"install" command:
 
     $ pck3r install "somthing" :
     {
@@ -61,9 +54,9 @@ $ ./installer.py
         or ...
     }
     
-"clear" command :
+"clear" command:
 
-    $ pck3r clear:
+    $ pck3r clear
     {clear your terminal }
 git branch --set-upstream-to=<remote>/<branch> master
 
@@ -74,27 +67,27 @@ git branch --set-upstream-to=<remote>/<branch> master
     (both, update and upgrade (full upgrade))
 
 
-"tilix" command :
+"tilix" command:
 
 
     $ pck3r tilix
     (tilix terminal ...)
 
 
-"dotnet" command :
+"dotnet" command:
 
     $ pck3r install dotnet
     (installing .NET (dot net ) C0RE, ASP, MCS compiler , ...)    
 
 
-"pkg" command :
+"pkg" command:
 
 
     $ pck3r pkg <package name>"
     (search for packages ...)"
 
 
-"update" command :
+"update" command:
 
 
     $ pck3r update
@@ -102,7 +95,7 @@ git branch --set-upstream-to=<remote>/<branch> master
 
 
 
-"version" command :
+"version" command:
 
 
     $ pck3r version
