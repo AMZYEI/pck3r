@@ -36,7 +36,7 @@ from progress.bar import Bar
 
 import time
 
-make_link = ' sudo   ln -s  /opt/pck3r/core_pck3r.py /bin/pck3r'
+make_link = ' sudo   ln -s  /opt/pck3r/main.py /bin/pck3r'
 
 # Progress bar widget
 
