@@ -38,7 +38,7 @@ $ pck3r sys <update/upgrade/updgr(update and upgrade)>%s'''
 
 while True:
         # check network connection, if internet not avalable BREAK the operation
-        if (syscall('ping -c2 4.2.2.4 > /dev/null 2>&1')) != 0:
+        if (syscall('ping -c1 4.2.2.4 > /dev/null 2>&1')) != 0:
 
             if argc ==  2 and argv[1] == 'help':
                 pass
