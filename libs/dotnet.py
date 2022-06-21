@@ -30,7 +30,7 @@ def code_name():
     release_code_name = str(bash('lsb_release -r')).replace(' ', '').replace('Release:', '').strip()
     print(release_code_name)
     if release_code_name == '20.04':
-        print("You use 20.04") 
+        print("You use UBUNTU 20.04") 
     else:
         print('%sCan\'t install .NET (only for *UBUNTU 20.04 ) \n '% stuff.RED)
         exit()
@@ -104,9 +104,8 @@ def install_dotnet():
         print('%s.NET(microsoft dotnet and MCS compiler (LINUX platform) ) installed  '% stuff.GRN )
 
 def uninstall_dotnet():
-
-    from . import stuff
-
+    code_name()
+    
     if (syscall('sudo apt update')) != 0:
         stuff.sysERR()
         print('%sCan\'t remove .NET (only for *UBUNTU 20.04 ) \n '% stuff.RED)
