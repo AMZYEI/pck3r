@@ -21,12 +21,24 @@ __authors__ = ['M.Amin Azimi .K(amzy-0)', 'https://github.com/amzy-0/pck3r/graph
 
 # system error (red logo print)
 
+from bash import bash
 from os import system as syscall
+
+from . import stuff
+
+def code_name():
+    release_code_name = str(bash('lsb_release -r')).replace(' ', '').replace('Release:', '').strip()
+    print(release_code_name)
+    if release_code_name == '20.04':
+        print("You use 20.04") 
+    else:
+        print('%sCan\'t install .NET (only for *UBUNTU 20.04 ) \n '% stuff.RED)
+        exit()
+        
 
 def install_dotnet():
 
-    from . import stuff
-
+    code_name()
     if (syscall('wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb')) != 0:
         stuff.sysERR()
         print('%sCan\'t install .NET (only for *UBUNTU 20.04 ) \n '% stuff.RED)
