@@ -28,12 +28,9 @@ from libs import dotnet
 argc = len(argv)
 
 def error_sys(): 
-    print('''%s%s
-After "sys" is empty !
-
+    stuff.sysERR('''
 Please try:
-$ pck3r sys <update/upgrade/updgr(update and upgrade)>%s'''
-    % (stuff.sysERR() , stuff.RED, stuff.NRM))
+$ pck3r sys <update/upgrade/updgr(update and upgrade)>''')
 
 
 while True:
@@ -44,13 +41,11 @@ while True:
                 pass
 
             else:
-                print('%s%sNetwork is unreachable\n%s' 
-                % (stuff.sysERR(),stuff.RED, stuff.NRM))
+                stuff.sysERR('Network is unreachable')
                 break
         # if user just type $ pck3r
         if argc <= 1:
-                print('%s%sAfter "pck3r" is empty!\n%s\nPlease try:\n$ pck3r help %s\n' 
-                    %  (stuff.sysERR(), stuff.RED, stuff.CYN, stuff.NRM))
+            stuff.sysERR('After "pck3r" is empty!\nPlease try:\n$ pck3r help')
                 
         else:
 
@@ -59,8 +54,7 @@ while True:
             # do :
             if argv[1] == 'clear' and argc == 2:
                 syscall('clear')
-                print('%sThis is funny clear command :D ' 
-                % stuff.sysOk())
+                stuff.sysOk(' This is funny clear command :D')
             
             # pck3r updator
             elif argv[1] == 'update' and argc == 2:
@@ -69,9 +63,7 @@ while True:
                     chdir('/opt/pck3r')
                     syscall('sudo -p "[sudo]🔑 : " git pull ; sudo git restore .; ./installer.py')
                 else:
-                    print('''%s%sYou can not update pck3r with the "root" permission
-                    %s'''
-                    %(stuff.sysERR(), stuff.RED, stuff.NRM))
+                    stuff.sysERR('You can not update pck3r with the "root" permission')
 
             # if argument 1 equal to "help"
             # like -> $ pck3r help
@@ -86,8 +78,7 @@ while True:
 
                 # if after install is empty
                 if argv[1]== 'install' and argc <= 2:
-                    print('%s%sAfter "install" is empty !%s ' 
-                    % (stuff.sysERR() , stuff.RED, stuff.NRM))
+                    stuff.sysERR('After "install" is empty !')
                 
                 elif argv[2] == 'flstudio' and argc == 3:
                     from libs import flstudio
@@ -103,7 +94,7 @@ while True:
                             sudo -p "[sudo]🔑 : " apt install yarnpkg -y''' 
                         % (stuff.YEL, stuff.CYN, stuff.MAG)))==0:
 
-                        print('%s' % stuff.sysOk())
+                        stuff.sysOk()
 
                         syscall('echo %s"Nodejs LTS Version :" ;  node --version %s' 
                         %(stuff.GRN, stuff.NRM))
@@ -112,8 +103,7 @@ while True:
 
                         # Exception
                     else:
-                        print('%s%s\nplease retry...\n$ pck3r install nodejs%s ' 
-                        % (stuff.sysERR() , stuff.RED, stuff.NRM))
+                        stuff.sysERR('please retry...\n$ pck3r install nodejs')
 
                 elif argv[2] == 'dotnet' and argc==3:
                     dotnet.install_dotnet()
@@ -129,8 +119,7 @@ while True:
                 # argument 2 is not empty
 
                 elif argv[2:] != [] and argc >= 2:
-                    print('%s%s\nCommand is valid : "$ pck3r install"\nLoading package lists...\n%s' 
-                    % (stuff.sysOk(), stuff.GRN, stuff.YEL))
+                    stuff.sysOk('Command is valid : "$ pck3r install"\nLoading package lists...')
 
                     packages = argv[2:]
                     packages = list(packages)
@@ -147,14 +136,14 @@ while True:
                             failed = list()
                             failed.append(package)
                             syscall("echo %s; %s --version" % (stuff.GRN, package))
-                            print('%s%sPackage(s) or Command(s) : %s Status : found ! ...%s'
-                            % (stuff.sysOk(), stuff.GRN, ' '.join(failed), stuff.NRM))
+                            stuff.sysOk('Package(s) or Command(s) : %s | Status : found ! ...' 
+                            % ' '.join(failed))
 
                         elif syscall(('sudo -p "[sudo]🔑 : " apt install %s > /dev/null 2>&1' % package))==25600:
                             failed = list()
                             failed.append(package)
-                            print('%s%sPackage(s) or Command(s) : %s Status : Not found ! ...%s'
-                            % (stuff.sysERR(), stuff.RED, ' '.join(failed), stuff.NRM))
+                            stuff.sysERR('Package(s) or Command(s) : %s | Status : Not found ! ...'
+                            % ' '.join(failed))
                             syscall('sleep 1')
                                                         
 
@@ -165,15 +154,11 @@ while True:
                             
                             for package in packages: #validation
 
-                                # if(syscall('%s --version 2> /dev/null' % package))==0:
-                                #     print('%s%s\n"%s" is already the newest version %s'
-                                #     % (stuff.sysOk(), stuff.GRN, package, stuff.NRM))
-                                
                                 if (syscall('sudo -p "[sudo]🔑 : " apt install %s 2> /dev/null' % package))==25600:
                                     failed = list()
                                     failed.append(package)
-                                    print('%s%sPackage(s) or Command(s) : "%s" Status : Not found ! ...'
-                                    % (stuff.sysERR(), stuff.RED, ' '.join(failed)), end='')
+                                    stuff.sysERR('Package(s) or Command(s) : "%s" | Status : Not found ! ...'
+                                    % ' '.join(failed))
                                     syscall('sleep 1')
                                     break
                          
@@ -186,8 +171,8 @@ while True:
                 # if after "uninstall" is empty
                 if argv[1] == 'uninstall' and argc <= 2:
 
-                    print('%s %sAfter "uninstall" is empty !%s ' 
-                    % (stuff.sysERR() , stuff.RED, stuff.NRM))
+                    stuff.sysERR('After "uninstall" is empty !')
+
                 
                 # if user want uninstall dotnet 
                 # do :
@@ -197,7 +182,7 @@ while True:
                 # argument 2 is not empty
                 # do :
                 elif argv[2:] != [] and argc >= 2:
-                    print('%s%s\nCommand is valid!\n%s' % (stuff.sysOk(), stuff.GRN, stuff.YEL))
+                    stuff.sysOk('Command is valid!')
                     syscall('sudo -p "[sudo]🔑 : " apt purge %s' % ' '.join(argv[2:]))
 
             # if argument 1 equal to "rm" (sudo apt remove)
@@ -205,17 +190,17 @@ while True:
 
                 # if after install is empty
                 if argv[1]== 'rm' and argc<=2:
-                    print('%s %sAfter "rm" is empty !%s ' % (stuff.sysERR() , stuff.RED, stuff.NRM))
+                    stuff.sysERR('After "rm" is empty !')
 
                 #  argument 2 is not empty
                 # do :
                 if argv[2:] != [] and argc>=2:
-                    print('%s%s\nCommand is valid!\n%s' % (stuff.sysOk(), stuff.GRN, stuff.YEL))
+                    stuff.sysOk('Command is valid!')
                     syscall('sudo -p "[sudo]🔑 : " apt remove %s' % ' '.join(argv[2:]))
 
                 # Exception
                 else:
-                    print('%sCommand or package(s) not found : %s' % (stuff.sysERR(), ' '.join(argv[2:])))
+                    stuff.sysOk('Command or package(s) not found : %s' % ' '.join(argv[2:]))
 
 
             # Too many arguments error for $ pck3r term
@@ -234,7 +219,7 @@ while True:
             # Only use :
             # $ pck3r tilix <somthing> <somthing> <somthing> <somthing>, ...
             elif argv[1] =='tilix' and argc>2:
-                    print('%s%sToo many arguments !\nOnly use :\n$ pck3r term %s' % (stuff.sysERR(), stuff.RED, stuff.NRM))
+                    stuff.sysOk('Too many arguments !\nOnly use :\n$ pck3r term')
 
 
             # if after "sys" command is empty
@@ -246,19 +231,19 @@ while True:
             elif argv[1] == 'sys' and argc > 2:
                 if argv[2]=='update' and argc==3:
                     if (syscall('sudo -p "[sudo]🔑 : " apt update')) == 0:
-                        print('%s%s\nAll package(s) status : UPDATED%s' % (stuff.sysOk(), stuff.GRN, stuff.NRM))
+                        stuff.sysOk('All package(s) status : UPDATED')
                     else:
-                        print(stuff.sysERR())
+                        stuff.sysERR()
                 # if user command, equal to $ pck3r sys upgrade
                 #do :
                 elif argv[2] == 'upgrade' and argc==3:
                     
                     if (syscall('sudo -p "[sudo]🔑 : " apt full-upgrade')) != 0:
-                        print('%s' %stuff.sysERR())
+                        stuff.sysERR()
 
                     else:                       
                         # print with green logo  
-                        print('%s%sAll package(s) status : UPGRADED' % (stuff.sysOk(), stuff.GRN))
+                        stuff.sysOk('All package(s) status : UPGRADED')
                         # echo green color and 
                         # and say:
                         syscall('echo %s' % stuff.GRN)
@@ -282,10 +267,10 @@ while True:
                 elif argv[2] == 'updgr' and argc==3:
                     
                     if (syscall('sudo -p "[sudo]🔑 : " apt update && sudo -p "[sudo]🔑 : " apt full-upgrade')) != 0:
-                        print('%s' %stuff.sysERR())
+                        stuff.sysERR()
 
                     else:    
-                        print('%s%sAll package(s) status : UPDATED and UPGRADED' % (stuff.sysOk(), stuff.GRN))
+                        stuff.sysOk('All package(s) status : UPDATED and UPGRADED')
                         syscall('echo %s' % stuff.GRN)
                         syscall('echo your OS information :')
                         syscall('uname -a ')
@@ -302,7 +287,7 @@ while True:
                     
             # if after "pkg" is empty
             elif argv[1]== 'pkg' and argc <= 2:
-                print('%s%sAfter "pkg" is empty !%s ' % (stuff.sysERR() , stuff.RED, stuff.NRM))
+                stuff.sysERR('After "pkg" is empty !')
             
             # if after "pkg" is not empty
             elif argv[1] == 'pkg' and argc >= 2:
@@ -323,8 +308,7 @@ while True:
             # print :
             # and breaking any operation  
             else:
-                print('%s%sCommand not found !%s\nPlease try:\n$ pck3r help %s'
-                 % (stuff.sysERR(), stuff.RED, stuff.CYN, stuff.NRM))
+                stuff.sysERR('Command not found !\nPlease try:\n$ pck3r help')
 
         # end of (for) loop
         break
