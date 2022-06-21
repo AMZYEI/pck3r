@@ -36,7 +36,7 @@ from progress.bar import Bar
 
 import time
 
-make_link = ' sudo   ln -s  /opt/pck3r/main.py /bin/pck3r'
+make_link = 'sudo   ln -s  /opt/pck3r/main.py /bin/pck3r'
 
 # Progress bar widget
 
@@ -46,12 +46,12 @@ make_link = ' sudo   ln -s  /opt/pck3r/main.py /bin/pck3r'
 with Bar('INSTALLING', fill='\U0001F709', max=100) as bar:
 
     # 20% PROGRESS 
-    syscall(' sudo   unlink /bin/pck3r > /dev/null 2>&1')
+    syscall('sudo unlink /bin/pck3r > /dev/null 2>&1')
     bar.next(20)
 
     # 40% PROGRESS
     time.sleep(1)
-   
+    
     
     syscall('sudo cp -rf . /opt/pck3r > /dev/null 2>&1')
     bar.next(20)
