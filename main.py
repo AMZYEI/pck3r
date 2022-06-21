@@ -126,12 +126,6 @@ while True:
                         syscall('echo "curl" is required for using "ohMyZsh" ; sudo -p "[sudo]🔑 : " apt install curl')
                         syscall('sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"') 
 
-                
-                # wine installer blocks
-                # command : $ pck3r install  wine 
-                elif argv[2] == 'wine' and argc==3:
-                    wine.wine_installer()
-
                 # argument 2 is not empty
 
                 elif argv[2:] != [] and argc >= 2:
