@@ -41,10 +41,10 @@ else:
 
 Pck3r : It is a versatile program. 
 You avoid using useless commands, and it is written for Ubuntu.
+%s
+"install" command:
 
-\"install\" command :
-
-    $ pck3r install \"somthing\" :
+    $ pck3r install "something" :
     {
         nodejs,
         ohmyzsh,
@@ -52,12 +52,12 @@ You avoid using useless commands, and it is written for Ubuntu.
         or ...
     }
 
-\"clear\" command :
+"clear" command :
 
     $ pck3r clear:
     {clear your terminal }
 
-\"sys\" command :
+"sys" command :
 
     $ pck3r sys update
     (update your oprating system)
@@ -68,22 +68,22 @@ You avoid using useless commands, and it is written for Ubuntu.
     $ pck3r sys updgr
     (both, update and upgrade (full upgrade))
 
-\"tilix\" command :
+"tilix" command :
 
     $ pck3r tilix
     (tilix terminal ...)
 
-\"dotnet\" command :
+"dotnet" command :
 
     $ pck3r install dotnet
     (installing .NET (dot net ) C0RE, ASP, MCS compiler , ...)
 
-\"pkg\" command :
+"pkg" command :
 
     $ pck3r pkg <package name>
     (search for packages ...)
 
-\"update\" command :
+"update" command :
 
     $ pck3r update
     (update to last release from github.com/amzy-0/pck3r)
@@ -92,8 +92,6 @@ You avoid using useless commands, and it is written for Ubuntu.
 
     $ pck3r version
     (this command show pck3r version)
-
-
             %s
-    """ % (stuff.YEL, stuff.NRM)
+    """ % (stuff.GRN, stuff.YEL, stuff.NRM)
     )
