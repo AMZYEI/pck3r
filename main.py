@@ -24,7 +24,6 @@ from os import chdir
 from sys import argv
 from libs import stuff
 from libs import dotnet
-from libs import wine
 
 argc = len(argv)
 
