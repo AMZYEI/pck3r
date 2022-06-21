@@ -50,9 +50,9 @@ if __name__ == "__main__":
     stop()
 else:
     # system error (red logo print)
-    def sysERR():
-        return("\n%s尸⼕长㇌尺 : ERROR !\n%s"% (RED, NRM))
+    def sysERR(MSG=''):
+        print("\n%s尸⼕长㇌尺 : ERROR !\n%s\n%s"% (RED, MSG, NRM))
 
     #system call done (green logo print)
-    def sysOk():
-        return("\n%s尸⼕长㇌尺 :\n %s" % (GRN, NRM))
+    def sysOk(MSG=''):
+        print("\n%s尸⼕长㇌尺 :\n %s\n%s" % (GRN, MSG, NRM))
