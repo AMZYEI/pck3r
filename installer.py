@@ -28,7 +28,7 @@ if syscall('sudo -p "[sudo]🔑" apt install python3-pip ; sudo mkdir -p /opt/pc
     quit()
 ###############################################################################
 
-syscall('pip install progress')
+syscall('pip install -r requirements.txt')
 
 
 from progress.bar import Bar
