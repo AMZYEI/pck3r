@@ -15,7 +15,9 @@
 # system wide installation :
 
 
-*for system wide installation :*
+*For system-wide installation:*
+
+
 
 
 $ ./installer.py
@@ -25,21 +27,28 @@ $ ./installer.py
 
 # pck3r commands
 
+Pck3r : It is a versatile program. 
+You avoid using useless commands, and it is written for Ubuntu.
+
 "install" command:
 
-    $ pck3r install "somthing" :
+    $ pck3r install "something" :
     {
         nodejs,
-        wine,
         ohmyzsh,
         flstudio,
         or ...
     }
-    
-"clear" command:
 
-    $ pck3r clear
+"clear" command :
+
+    $ pck3r clear:
     {clear your terminal }
+
+"sys" command :
+
+    $ pck3r sys update
+    (update your oprating system)
 
     $ pck3r sys upgrade
     (upgrade your oprating system)
@@ -47,37 +56,27 @@ $ ./installer.py
     $ pck3r sys updgr
     (both, update and upgrade (full upgrade))
 
-
-"tilix" command:
-
+"tilix" command :
 
     $ pck3r tilix
     (tilix terminal ...)
 
-
-"dotnet" command:
+"dotnet" command :
 
     $ pck3r install dotnet
-    (installing .NET (dot net ) C0RE, ASP, MCS compiler , ...)    
+    (installing .NET (dot net ) C0RE, ASP, MCS compiler , ...)
 
+"pkg" command :
 
-"pkg" command:
+    $ pck3r pkg <package name>
+    (search for packages ...)
 
-
-    $ pck3r pkg <package name>"
-    (search for packages ...)"
-
-
-"update" command:
-
+"update" command :
 
     $ pck3r update
     (update to last release from github.com/amzy-0/pck3r)
-
-
-
-"version" command:
-
+    
+"version" command :
 
     $ pck3r version
     (this command show pck3r version)
