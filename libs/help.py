@@ -47,7 +47,6 @@ You avoid using useless commands, and it is written for Ubuntu.
     $ pck3r install \"somthing\" :
     {
         nodejs,
-        wine,
         ohmyzsh,
         flstudio,
         or ...
